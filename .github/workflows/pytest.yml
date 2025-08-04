@@ -31,7 +31,7 @@ jobs:
         run: mkdir -p reports
 
       - name: Run tests
-        run: pytest ./tests -v --html=./reports/report.html
+        run: pytest ./tests -v -s --html=./reports/report.html
 
       - name: Test Report Generation
         uses: actions/upload-artifact@v4
