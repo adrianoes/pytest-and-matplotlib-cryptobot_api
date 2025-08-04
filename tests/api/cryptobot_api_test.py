@@ -2,6 +2,16 @@
 
 import os
 import time
+import matplotlib
+
+RUN_ENV = os.getenv("RUN_ENV", "local").lower()
+
+if RUN_ENV == "ci":
+    matplotlib.use('Agg')  # Non-interactive backend for CI
+else:
+    # Para local, pode usar backend padrão com GUI
+    pass
+
 import matplotlib.pyplot as plt
 from .support_api import get_binance_btc_brl_price, get_coindesk_btc_brl_price
 
@@ -10,10 +20,11 @@ def test_plot_btc_brl_prices_realtime():
     coindesk_prices = []
     timestamps = []
 
-    # Ensure the 'reports' directory exists
     os.makedirs("reports", exist_ok=True)
 
-    plt.ion()
+    if RUN_ENV != "ci":
+        plt.ion()
+
     fig, ax = plt.subplots()
 
     line1, = ax.plot([], [], 'o-', label="Binance BTC/BRL", color="blue", markersize=4)
@@ -46,16 +57,21 @@ def test_plot_btc_brl_prices_realtime():
 
         ax.relim()
         ax.autoscale_view()
-        plt.pause(0.1)
+
+        if RUN_ENV == "ci":
+            time.sleep(0.1)
+        else:
+            plt.pause(0.1)
 
         print(f"[{round(elapsed, 1)}s] Binance: {price_binance:.2f} | Coindesk: {price_coindesk:.2f}")
 
-    plt.ioff()
+    if RUN_ENV != "ci":
+        plt.ioff()
 
-    # Save the chart at the end
-    fig.savefig("reports/btc_brl_prices_plot.png")
+    fig.tight_layout()
+    fig.savefig("reports/btc_brl_prices_plot.png", dpi=100, bbox_inches='tight')
 
-    # Show and close the figure automatically after 10 seconds
-    plt.show(block=False)
-    time.sleep(10)
-    plt.close(fig)
+    if RUN_ENV != "ci":
+        plt.show(block=False)
+        time.sleep(10)
+        plt.close(fig)

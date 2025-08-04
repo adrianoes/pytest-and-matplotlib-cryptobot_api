@@ -31,13 +31,13 @@ jobs:
         run: mkdir -p reports
 
       - name: Run tests
+        env:
+          RUN_ENV: ci
         run: pytest ./tests -v -s --html=./reports/report.html
 
-      - name: Test Report Generation
+      - name: Upload Reports
         uses: actions/upload-artifact@v4
         if: success() || failure()
         with:
           name: report
-          path: |
-            ./reports/report.html
-            ./reports/btc_brl_prices_plot.png
+          path: ./reports
