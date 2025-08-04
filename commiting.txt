@@ -14,7 +14,7 @@ Commiting for second time and so on:
 
 git status
 git add .
-git commit -m "adding -s option in workflow"
+git commit -m "fixing gitignore"
 git push -u origin main
 
 (refresh page after api cmds)
