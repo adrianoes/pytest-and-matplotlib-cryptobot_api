@@ -32,8 +32,8 @@ Check then both to add both options in context menu.
 
 # Execute requisition:
 
-- Execute ```pytest ./tests -v --html=./reports/report.html``` to run tests in verbose mode and generate a report inside reports folder.
-- Execute ```pytest .\tests\api\cryptobot_api_test.py -v --html=./reports/report.html``` to run tests inside cryptobot_api_test.py file in verbose mode and generate a report inside reports folder.
+- Execute ```pytest ./tests -v -s --html=./reports/report.html``` to run tests in verbose mode and generate a report inside reports folder.
+- Execute ```pytest .\tests\api\cryptobot_api_test.py -v -s --html=./reports/report.html``` to run tests inside cryptobot_api_test.py file in verbose mode and generate a report inside reports folder.
 
 # Support:
 

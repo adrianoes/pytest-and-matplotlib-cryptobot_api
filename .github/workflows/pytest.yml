@@ -31,8 +31,6 @@ jobs:
         run: mkdir -p reports
 
       - name: Run tests
-        env:
-          RUN_ENV: ci
         run: pytest ./tests -v -s --html=./reports/report.html
 
       - name: Upload Reports
